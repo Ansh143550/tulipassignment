@@ -45,20 +45,14 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
    npm install
    ```
 
-3. **Configure Environment Variables**
-   Create a `.env` file in the root directory (if not present) with the following content:
-   ```env
-   PORT=3000
-   JWT_SECRET=your_super_secret_key_here
-   NODE_ENV=development
-   ```
 
-4. **Start the server**
+
+3. **Start the server**
    ```bash
    npm start
    ```
 
-5. **Open the App**
+4. **Open the App**
    Open your browser and navigate to `http://localhost:3000`.
 
 ---
