@@ -167,7 +167,7 @@ router.get('/:projectId/list', authenticate, (req, res) => {
   `;
   const params = [req.params.projectId];
   if (status) { query += ' AND t.status = ?'; params.push(status); }
-  query += ' ORDER BY CASE t.priority WHEN \\'critical\\' THEN 1 WHEN \\'high\\' THEN 2 WHEN \\'medium\\' THEN 3 ELSE 4 END, t.created_at DESC';
+  query += " ORDER BY CASE t.priority WHEN 'critical' THEN 1 WHEN 'high' THEN 2 WHEN 'medium' THEN 3 ELSE 4 END, t.created_at DESC";
 
   const tasks = db.prepare(query).all(...params);
   res.json({ tasks });
