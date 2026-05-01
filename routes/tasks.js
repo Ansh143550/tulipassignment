@@ -182,8 +182,8 @@ router.post('/', authenticate, (req, res) => {
 
   // Check membership
   if (req.user.role !== 'admin') {
-    const member = db.prepare('SELECT id FROM project_members WHERE project_id = ? AND user_id = ?').get(project_id, req.user.id);
-    if (!member) return res.status(403).json({ error: 'Not a project member' });
+    const member = db.prepare('SELECT role FROM project_members WHERE project_id = ? AND user_id = ?').get(project_id, req.user.id);
+    if (!member || member.role !== 'admin') return res.status(403).json({ error: 'Only project admins can create tasks' });
   }
 
   // Validate assignee is a project member

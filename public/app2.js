@@ -8,6 +8,11 @@ async function loadProjectDetail(projectId) {
     document.getElementById('proj-detail-desc').textContent = data.project.description || '';
 
     const s = data.taskStats;
+    const isAdmin = currentUser.role === 'admin' || (data.members && data.members.some(m => m.id === currentUser.id && m.project_role === 'admin'));
+    window._currentProjectIsAdmin = isAdmin;
+    document.getElementById('btn-edit-project').style.display = isAdmin ? '' : 'none';
+    document.getElementById('btn-add-task').style.display = isAdmin ? '' : 'none';
+
     document.getElementById('proj-stats-bar').innerHTML = `
       <div class="psb-item"><div class="psb-val">${s.total}</div><div class="psb-lbl">Total</div></div>
       <div class="psb-item"><div class="psb-val" style="color:#60a5fa">${s.in_progress}</div><div class="psb-lbl">In Progress</div></div>
@@ -47,7 +52,7 @@ async function loadKanban(projectId) {
           <span class="kanban-col-title" style="color:${col.color}">${col.label}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="kanban-count">${tasks.length}</span>
-            <button class="kanban-add" onclick="openCreateTask('${col.key}')" title="Add task">+</button>
+            ${window._currentProjectIsAdmin ? `<button class="kanban-add" onclick="openCreateTask('${col.key}')" title="Add task">+</button>` : ''}
           </div>
         </div>
         <div class="kanban-cards">

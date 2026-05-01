@@ -156,7 +156,7 @@ async function initApp() {
     av.textContent = currentUser.name[0].toUpperCase();
     av.style.background = currentUser.avatar_color || '#6366f1';
     document.getElementById('dash-greeting').textContent = `Welcome back, ${currentUser.name.split(' ')[0]}! 👋`;
-    if (currentUser.role === 'admin') document.getElementById('admin-nav').style.display = '';
+    document.getElementById('admin-nav').style.display = currentUser.role === 'admin' ? '' : 'none';
     navigate('dashboard');
   } catch (e) {
     logout();
